@@ -4,7 +4,7 @@ const userSchema = mongoose.Schema({
    name: String,
    lastname: String,
    email: String,
-   password: String,
+   passwordHash: String,
    isProfessional: Boolean,
 });
 

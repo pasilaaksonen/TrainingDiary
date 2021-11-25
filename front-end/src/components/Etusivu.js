@@ -9,7 +9,7 @@ const Etusivu = () => {
                  TREENIPÄIVÄKIRJA
             </h1>
             <h6>
-                Harjoitus 4, created by Pasi Laaksonen
+                Back-end kurssi, loppuprojekti
             </h6>
             <img src={weights} alt="weights" />
         </div>

@@ -2,14 +2,35 @@ import express from 'express';
 import UserData from '../models/user-model.js';
 import TrainerData from '../models/trainer-model.js';
 import OwnTrainingData from '../models/own-training.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-// export const login = async (req, res) => {
+export const login = async (req, res) => {
+  const body = req.body;
 
-//    const email = req.body.email;
-//    const password = req.body.password;
+  const user = await UserData.findOne({ email: body.email });
 
-// }
-//
+  const passwordCorrect =
+    user === null
+      ? false
+      : await bcrypt.compare(body.password, user.passwordHash);
+
+  if (!(user && passwordCorrect)) {
+    return res.status(401).json({
+      error: 'invalid email or password',
+    });
+  }
+
+  const userForToken = {
+    username: user.name,
+    id: user._id,
+  };
+
+  const token = jwt.sign(userForToken, process.env.SECRET);
+
+  res.status(200).send({ token, name: user.name });
+};
+
 const router = express.Router();
 
 export const register = async (req, res) => {
@@ -19,11 +40,14 @@ export const register = async (req, res) => {
   const password = req.body.password;
   const isProfessional = req.body.isProfessional;
 
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
+
   const newUserData = new UserData({
     name: name,
     lastname: lastname,
     email: email,
-    password: password,
+    passwordHash,
     isProfessional: isProfessional,
   });
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  login,
   register,
   getData,
   readData,
@@ -13,8 +14,7 @@ import {
 
 const router = express.Router();
 
-// router.post('/login', usersControllers.login);
-router.post('/register', register);
+router.post('/login', login);
 router.post('/read', getData);
 router.get('/result/amateurs', readData);
 router.get('/result/professionals', readData2);
@@ -23,5 +23,6 @@ router.get('/result/profile', readProfile);
 router.post('/addnew', insertNewTrainingData);
 router.delete('/delete/:id', deleteTrainingData);
 router.put('/update', editTraining);
+router.post('/register', register);
 
 export default router;

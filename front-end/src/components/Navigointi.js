@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Axios from 'axios';
-import { FaHome } from "react-icons/fa";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 
 const Navigointi = (props) => {
@@ -98,74 +97,78 @@ const Navigointi = (props) => {
 
     return (
         <>  
-            <Link to="/">
-                <button>
-                    <FaHome />
-                </button>
-            </Link>
-            <Link to="/harrastajien_tulokset">
-                <button>
-                    Harrastajat
-                </button>
-            </Link>
-            {props.isLoggedAmmattilainen &&
-            <Link to="/ammattilaisten_tulokset">
-                <button>
-                    Ammattilaiset
-                </button>
-            </Link>
-            }
-            {props.isLogged && 
-            <Link to="/omat_treenit">
-                <button>
-                    Omat Treenit
-                </button>
-            </Link>
-            }
-            {" "}
-            {loggedIn && <label>Kirjautunut: {loggedInAs}</label>}{"    "}
-            {props.isLogged? 
-                <button variant="primary" onClick={handleLogOut}><BiLogOut /></button>:
-                <button variant="primary" onClick={handleShowSignIn}>Kirjaudu <BiLogIn /></button>
-            }
-            <Modal show={signInDialog} onHide={handleCloseSignIn}>
+            <nav class='nav'>
+                <Link to="/">
+                    <button class='navButton'>
+                        Etusivu
+                    </button>
+                </Link>
+                <Link to="/harrastajien_tulokset">
+                    <button class='navButton'>
+                        Harrastajat
+                    </button>
+                </Link>
+                {props.isLoggedAmmattilainen &&
+                <Link to="/ammattilaisten_tulokset">
+                    <button class='navButton'>
+                        Ammattilaiset
+                    </button>
+                </Link>
+                }
+                {props.isLogged && 
+                <Link to="/omat_treenit">
+                    <button class='navButton'>
+                        Omat Treenit
+                    </button>
+                </Link>
+                }
+                {" "}
+                {loggedIn && <label class='navButton'>Kirjautuneena: {loggedInAs}</label>}{"    "}
+                {props.isLogged? 
+                    <button variant="primary" onClick={handleLogOut} class='navButton'><BiLogOut class='loginIcon' /></button>:
+                    <button variant="primary" onClick={handleShowSignIn} class='navButton'>Kirjaudu<BiLogIn class='loginIcon' /></button>
+                }
+            </nav>
+
+            <Modal show={signInDialog} onHide={handleCloseSignIn} backdrop='static'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Kirjaudu sisään</Modal.Title>
+                    <Modal.Title id='modalTitle'>Kirjaudu sisään</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <label>Sähköposti</label><br />
-                    <input type="text" onChange={(e) => setEmail(e.target.value)}></input><br />
+                    <input type="text" id='modalInput' placeholder='esim. maija.meikalainen@gmail.com' onChange={(e) => setEmail(e.target.value)}></input><br />
                     <label>Salasana</label><br />
-                    <input type="password" onChange={(e) => setPasword(e.target.value)}></input>
+                    <input type="password" id='modalInput' placeholder='esim. Salasana1!' onChange={(e) => setPasword(e.target.value)}></input>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleSignUp}>
+                    <Button variant='outline-info' onClick={handleSignUp}>
                         Kirjaudu
                     </Button>
-                    <Button variant="secondary" onClick={handleRegisterDialog}>
-                        Rekisteröidy
+                    <Button variant='outline-info' onClick={handleRegisterDialog}>
+                        Luo tunnukset
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Modal show={signUpDialog} onHide={handleCloseSignUp}>
+
+            <Modal show={signUpDialog} onHide={handleCloseSignUp} backdrop='static'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Rekisteröidy</Modal.Title>
+                    <Modal.Title id='modalTitle'>Rekisteröidy</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <label>Etunimi</label><br />
-                    <input type="text" onChange={(e) => props.setName(e.target.value)}></input><br />
+                    <input type="text" id='modalInput' placeholder='esim. Maija' onChange={(e) => props.setName(e.target.value)}></input><br />
                     <label>Sukunimi</label><br />
-                    <input type="text" onChange={(e) => setLastName(e.target.value)}></input><br />
+                    <input type="text" id='modalInput' placeholder='esim. Meikäläinen' onChange={(e) => setLastName(e.target.value)}></input><br />
                     <label>Sähköposti</label><br />
-                    <input type="text" onChange={(e) => setEmail(e.target.value)}></input><br />
+                    <input type="text" id='modalInput' placeholder='esim. maija.meikalainen@gmail.com' onChange={(e) => setEmail(e.target.value)}></input><br />
                     <label>Salasana</label><br />
-                    <input type="text" onChange={(e) => setPasword(e.target.value)}></input><br /> <br />
+                    <input type="text" id='modalInput' placeholder='esim. Salasana1!' onChange={(e) => setPasword(e.target.value)}></input><br /> <br />
                     <label>Olen ammattilainen</label>{ " " }
                     <input type="checkbox" onChange={(e) => setRegisterCheckBox(e.target.checked)}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleRegister}>
-                        Ok
+                    <Button variant='outline-info' onClick={handleRegister}>
+                        Rekisteröidy
                     </Button>
                 </Modal.Footer>
             </Modal>

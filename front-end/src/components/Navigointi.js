@@ -117,9 +117,9 @@ const Navigointi = (props) => {
                             Omat Treenit
                         </button>
                     </Link>
-                    <Link to="/omat_treenit">
+                    <Link to="/oma_profiili">
                       <button class='navButton'>
-                          Omat Treenit
+                          Oma Profiili
                       </button>
                     </Link>
                   </>

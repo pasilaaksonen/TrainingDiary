@@ -21,11 +21,11 @@ const OmaProfiili = () => {
 
   return (
     <div>
-      <h1>Oma profiili</h1>
-      <Card style={{ width: '18rem' }}>
+      <h1 class='title'>Oma profiili</h1>
+      <Card style={{ width: '18rem', marginLeft: '5%' }}>
         {/* <Card.Img variant='top' src='holder.js/100px180?text=Image cap' /> */}
         <Card.Body>
-          <Card.Title>
+          <Card.Title style={{ textAlign: 'center' }}>
             {user.name} {user.lastname}
           </Card.Title>
           {/* <Card.Text>Profile description</Card.Text> */}

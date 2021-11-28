@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
 import { BiLogIn, BiLogOut } from "react-icons/bi";
+import trainingDiaryServices from '../services/trainingDiary';
+import loginServices from '../services/login';
+import signinServices from '../services/signin';
 
 const Navigointi = (props) => {
-//
+
     const [signInDialog, setsignInDialog] = useState(false);
     const [signUpDialog, setsignUpDialog] = useState(false);
 
@@ -17,64 +19,57 @@ const Navigointi = (props) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [loggedInAs, setLoggedInAs] = useState("");
 
-    const handleCloseSignIn = () => {
-
-        setsignInDialog(false);
-    }
+    const handleCloseSignIn = () => setsignInDialog(false);
     const handleCloseSignUp = () => setsignUpDialog(false);
+    const handleShowSignIn = () => setsignInDialog(true);
 
     const handleRegisterDialog = () => {
         setsignInDialog(false);
         setsignUpDialog(true);
     }
 
-    const handleShowSignIn = () => setsignInDialog(true);
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        try {
+          const user = await loginServices.login({
+            email, password,
+          })
+          window.localStorage.setItem(
+            'loggedBlogAppUser', JSON.stringify(user)
+          )
+          trainingDiaryServices.setToken(user.token)
+          console.log(user)
+          props.setUser(user)
+        //   setUsername('')
+        //   setPassword('')
+
+        setLoggedIn(true);
+        setLoggedInAs(user.name);
+        props.setIsLoggedAmmattilainen(user.isProfessional);
+        props.setName(user.name);
+        props.setIsLogged(true);
+
+        console.log('succesfully logged in')
+        handleCloseSignIn();
+        } catch (exception) {
+            console.log('wrong username or password')
+            handleCloseSignIn();
+        }
+      }
 
     const registerUser = () => {
 
         if (!props.name || !lastname || !email || !password) 
           return;
         
-        Axios.post("http://localhost:5000/user/register", {
-          name: props.name,
-          lastname: lastname,
-          email: email,
-          password: password,
-          isProfessional: registerCheckBox,
-        });
-      };
-
-    const readUser = () => {
-
-        Axios.post("http://localhost:5000/user/read", {
-            email: email, 
+        signinServices.signin({
+            name: props.name,
+            lastname: lastname,
+            email: email,
             password: password,
+            isProfessional: registerCheckBox,  
         })
-            .then((response) => {  
-            if (response.data === "Kirjautuminen epäonnistui") {
-                console.log("Tarkista kirjautumistiedot")
-                return;
-            } else {
-            setLoggedIn(true);
-            setLoggedInAs(response.data[0]);
-            props.setIsLoggedAmmattilainen(response.data[1]);
-            props.setName(response.data[0]);
-            props.setIsLogged(true);
-            }
-            });    
-    }
-    
-    const handleSignUp = () => {
-
-        if (!email || !password) {
-            console.log("Tyhjät kentät ei käy");
-            handleCloseSignIn();
-            return;
-        } else {
-            readUser();
-            handleCloseSignIn();
-        }
-    }
+    };
 
     const handleRegister = () => {
         registerUser();
@@ -147,7 +142,7 @@ const Navigointi = (props) => {
                     <input type="password" id='modalInput' placeholder='esim. Salasana1!' onChange={(e) => setPasword(e.target.value)}></input>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='outline-info' onClick={handleSignUp}>
+                    <Button variant='outline-info' onClick={handleLogin}>
                         Kirjaudu
                     </Button>
                     <Button variant='outline-info' onClick={handleRegisterDialog}>

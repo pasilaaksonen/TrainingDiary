@@ -10,7 +10,7 @@ export const login = async (req, res) => {
     const body = req.body
 
     const user = await UserData.findOne({ email: body.email })
-    
+    console.log(user)
     const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(body.password, user.passwordHash)
@@ -22,7 +22,7 @@ export const login = async (req, res) => {
     }
 
     const userForToken = {
-        username: user.name,
+        name: user.name,
         id: user._id,
     }
 
@@ -30,7 +30,7 @@ export const login = async (req, res) => {
     
     res
     .status(200)
-    .send({ token, name: user.name })
+    .send({ token, name: user.name, email: user.email, isProfessional: user.isProfessional })
 
 }
 
@@ -123,6 +123,7 @@ export const readData2 = async (req, res) => {
 export const readData3 = async (req, res) => {
 
     OwnTrainingData.find({}, (err, result) => {
+        console.log(result.data)
         if (err) {
            res.send(err) 
         }

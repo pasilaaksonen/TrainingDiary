@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import {Modal, Button, Table} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
-import Axios from 'axios';
 import {GrEdit} from 'react-icons/gr';
 import {MdDeleteSweep} from 'react-icons/md';
+import trainingDiaryServices from '../services/trainingDiary';
 
 const OmatTreenit = (props) => {
 
@@ -49,51 +49,53 @@ const OmatTreenit = (props) => {
 
   const handleAddNew = () => {
 
-    Axios.post('http://localhost:5000/user/addnew', {
+    trainingDiaryServices.create({
       name: props.name,
       pvm: newDate,
       laji: newSport,
       suoritukset_yht: newReps,
       paino: newWeight,
       isProfessional: props.isLoggedAmmattilainen,
-    });
-    setUserData([...userData, {Pvm: newDate, Laji: newSport, Suoritukset_yht: newReps, Paino: newWeight}]);
+    })
+    setUserData([...userData, {Pvm: newDate, Laji: newSport, Suoritukset_yht: newReps, Paino: newWeight}])
     setNewDate('');
     setNewSport('');
     setNewReps('');
     setNewWeight('');
     handleCloseAddNew();
-  };
+  }
 
   const handleRemove = (id) => {
-    Axios.delete(`http://localhost:5000/user/delete/${id}`);
+    trainingDiaryServices.deleteEntry(id);
     let items = userData.filter((training) => training.ID !== id);
     setUserData(items);
-  };
+  }
 
-  const getData = () => {
-     
-    Axios.get('http://localhost:5000/user/result/omat').then((response) => {
-        
-      const newArray = [['ID', 'Pvm', 'Laji', 'Suoritukset_yht', 'Paino']];
-      const datesArray = [];
-      const ownData = response.data.filter(item => item.name === props.name);
-      
-      for (let i = 0; i <= ownData.length - 1; i++) {
-        const tempArray = [];
-        tempArray.push(ownData[i]._id, ownData[i].pvm, ownData[i].laji, ownData[i].suoritukset_yht, ownData[i].paino);
-        newArray.push(tempArray);
-      };
-        
-      const newArrayOfObjects = convertToArrayOfObjects(newArray);
-        
-      setUserData(newArrayOfObjects);
+  const getData = useCallback(() => {
+
+    trainingDiaryServices.getEntries().then((response) => {
+    
+    const newArray = [['ID', 'Pvm', 'Laji', 'Suoritukset_yht', 'Paino']];
+    const datesArray = [];
+
+    const ownData = response.data.filter(item => item.name === props.name);
+  
+    for (let i = 0; i <= ownData.length - 1; i++) {
+      const tempArray = []
+      tempArray.push(ownData[i]._id, ownData[i].pvm, ownData[i].laji, ownData[i].suoritukset_yht, ownData[i].paino)
+      newArray.push(tempArray);
+    }
+    
+    const newArrayOfObjects = convertToArrayOfObjects(newArray);
+    setUserData(newArrayOfObjects);
+
     });
-  };
+},[props.name])
+
 
   useEffect(() => {
     getData();
-  }, []);
+  },[getData]);
 
   const handleEdit = (id) => {
     setIdForEdit(id);
@@ -101,10 +103,11 @@ const OmatTreenit = (props) => {
   };
 
   const handleNewEdit = () => {
-    Axios.put('http://localhost:5000/user/update', {id: idForEdit, pvm: editDate, laji: editSport, suoritukset_yht: editReps, paino: editWeight});
+    trainingDiaryServices.modifyEntry({id: idForEdit, pvm: editDate, laji: editSport, suoritukset_yht: editReps, paino: editWeight});
     getData();
     handleCloseEditTraining();
-  };
+    getData();
+  }
     
   const renderPlayer = (users, index) => {
     return (

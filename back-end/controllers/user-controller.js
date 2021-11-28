@@ -28,7 +28,7 @@ export const login = async (req, res) => {
 
   const token = jwt.sign(userForToken, process.env.SECRET);
 
-  res.status(200).send({ token, name: user.name });
+  res.status(200).send({ token, name: user.name, email: user.email, isProfessional: user.isProfessional });
 };
 
 const router = express.Router();
@@ -59,35 +59,35 @@ export const register = async (req, res) => {
   }
 };
 
-export const getData = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+// export const getData = async (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
 
-  console.log(email);
-  console.log(password);
+//   console.log(email);
+//   console.log(password);
 
-  UserData.find({}, (err, result) => {
-    let userAccount = result.filter(user => user.email === email);
-    console.log(userAccount);
+//   UserData.find({}, (err, result) => {
+//     let userAccount = result.filter(user => user.email === email);
+//     console.log(userAccount);
 
-    if (!userAccount) {
-      console.log('Tunnus väärin?');
-      res.send('Kirjautuminen epäonnistui');
-      return;
-    }
-    if (password !== userAccount[0].password) {
-      console.log('Salasana Väärin?');
-      res.send('Kirjautuminen epäonnistui');
-      return;
-    } else {
-      const sendItems = [];
-      sendItems.push(result[0].name);
-      sendItems.push(result[0].isProfessional);
-      console.log('kaikki ok');
-      res.send(sendItems);
-    }
-  });
-};
+//     if (!userAccount) {
+//       console.log('Tunnus väärin?');
+//       res.send('Kirjautuminen epäonnistui');
+//       return;
+//     }
+//     if (password !== userAccount[0].password) {
+//       console.log('Salasana Väärin?');
+//       res.send('Kirjautuminen epäonnistui');
+//       return;
+//     } else {
+//       const sendItems = [];
+//       sendItems.push(result[0].name);
+//       sendItems.push(result[0].isProfessional);
+//       console.log('kaikki ok');
+//       res.send(sendItems);
+//     }
+//   });
+// };
 
 export const readData = async (req, res) => {
   OwnTrainingData.find({}, (err, result) => {

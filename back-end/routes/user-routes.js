@@ -2,7 +2,6 @@ import express from 'express';
 import {
   login,
   register,
-  getData,
   readData,
   readData2,
   readData3,
@@ -15,7 +14,7 @@ import {
 const router = express.Router();
 
 router.post('/login', login);
-router.post('/read', getData);
+// router.post('/read', getData);
 router.get('/result/amateurs', readData);
 router.get('/result/professionals', readData2);
 router.get('/result/omat', readData3);

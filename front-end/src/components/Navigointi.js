@@ -115,15 +115,21 @@ const Navigointi = (props) => {
                     </button>
                 </Link>
                 }
-                {props.isLogged && 
-                <Link to="/omat_treenit">
-                    <button class='navButton'>
-                        Omat Treenit
-                    </button>
-                </Link>
-                }
-                {" "}
-                {loggedIn && <label class='navButton'>Kirjautuneena: {loggedInAs}</label>}{"    "}
+                {props.isLogged && (
+                  <>
+                    <Link to="/omat_treenit">
+                        <button class='navButton'>
+                            Omat Treenit
+                        </button>
+                    </Link>
+                    <Link to="/omat_treenit">
+                      <button class='navButton'>
+                          Omat Treenit
+                      </button>
+                    </Link>
+                  </>
+                )}
+                {"  "}
                 {props.isLogged? 
                     <button variant="primary" onClick={handleLogOut} class='navButton'><BiLogOut class='loginIcon' /></button>:
                     <button variant="primary" onClick={handleShowSignIn} class='navButton'>Kirjaudu<BiLogIn class='loginIcon' /></button>
@@ -176,4 +182,4 @@ const Navigointi = (props) => {
     )
 }
 
-export default Navigointi
+export default Navigointi;

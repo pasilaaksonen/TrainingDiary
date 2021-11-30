@@ -1,32 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as ReactBootStrap from 'react-bootstrap';
-import Axios from 'axios';
+import trainingDiaryServices from '../services/trainingDiary';
+import { convertToArrayOfObjects } from '../functions/convertToArrayOfObjects';
 
 const HarrastajienTulokset = () => {
 
   const [users, setUsers] = useState([]);
 
-  const convertToArrayOfObjects = (data) => {
-    var keys = data.shift(),
-      i = 0, k = 0,
-      obj = null,
-      output = [];
-  
-    for (i = 0; i < data.length; i++) {
-      obj = {};
-  
-      for (k = 0; k < keys.length; k++) {
-        obj[keys[k]] = data[i][k];
-      };
-  
-      output.push(obj);
-    };
-  
-    return output;
-  };
-
   useEffect(() => {
-    Axios.get('http://localhost:5000/user/result/amateurs').then((response) => {
+    trainingDiaryServices.getOwnEntries().then((response) => {
         
       const newArray = [['Pvm', 'Suoritukset_yht', 'Suorittajalkm']];
       const datesArray = [];
@@ -62,16 +44,15 @@ const HarrastajienTulokset = () => {
     });
   }, []);
 
-    const renderPlayer = (users, index) => {
-      return (
-        <tr key={index}>
-          <td>{users.Pvm}</td>
-          <td>{users.Suoritukset_yht}</td>
-          <td>{users.Suorittajalkm}</td>
-        </tr>
-      );
-    };
-
+  const renderPlayer = (users, index) => {
+    return (
+      <tr key={index}>
+        <td>{users.Pvm}</td>
+        <td>{users.Suoritukset_yht}</td>
+        <td>{users.Suorittajalkm}</td>
+      </tr>
+    );
+  };
 
   return (
     <div>

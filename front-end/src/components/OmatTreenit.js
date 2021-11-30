@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {GrEdit} from 'react-icons/gr';
 import {MdDeleteSweep} from 'react-icons/md';
 import trainingDiaryServices from '../services/trainingDiary';
+import { convertToArrayOfObjects } from '../functions/convertToArrayOfObjects';
 
 const OmatTreenit = (props) => {
 
@@ -27,25 +28,6 @@ const OmatTreenit = (props) => {
   const [editReps, setEditReps] = useState('');
   const [editWeight, setEditWeight] = useState('');
   const [idForEdit, setIdForEdit] = useState('');
-
-  const convertToArrayOfObjects = (data) => {
-    var keys = data.shift(),
-      i = 0, k = 0,
-      obj = null,
-      output = [];
-    
-    for (i = 0; i < data.length; i++) {
-      obj = {};
-    
-      for (k = 0; k < keys.length; k++) {
-        obj[keys[k]] = data[i][k];
-      };
-    
-      output.push(obj);
-    };
-    
-    return output;
-  };
 
   const handleAddNew = () => {
 
@@ -73,7 +55,7 @@ const OmatTreenit = (props) => {
 
   const getData = useCallback(() => {
 
-    trainingDiaryServices.getEntries().then((response) => {
+    trainingDiaryServices.getOwnEntries().then((response) => {
     
     const newArray = [['ID', 'Pvm', 'Laji', 'Suoritukset_yht', 'Paino']];
     const datesArray = [];

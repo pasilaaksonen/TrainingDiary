@@ -8,5 +8,5 @@ const trainerSchema = mongoose.Schema({
 });
 
 const TrainerData = mongoose.model('trainingdata', trainerSchema);
-//
+
 export default TrainerData;

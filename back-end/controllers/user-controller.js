@@ -59,58 +59,9 @@ export const register = async (req, res) => {
   }
 };
 
-// export const getData = async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   console.log(email);
-//   console.log(password);
-
-//   UserData.find({}, (err, result) => {
-//     let userAccount = result.filter(user => user.email === email);
-//     console.log(userAccount);
-
-//     if (!userAccount) {
-//       console.log('Tunnus väärin?');
-//       res.send('Kirjautuminen epäonnistui');
-//       return;
-//     }
-//     if (password !== userAccount[0].password) {
-//       console.log('Salasana Väärin?');
-//       res.send('Kirjautuminen epäonnistui');
-//       return;
-//     } else {
-//       const sendItems = [];
-//       sendItems.push(result[0].name);
-//       sendItems.push(result[0].isProfessional);
-//       console.log('kaikki ok');
-//       res.send(sendItems);
-//     }
-//   });
-// };
-
 export const readData = async (req, res) => {
   OwnTrainingData.find({}, (err, result) => {
     console.log(result.data);
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
-};
-
-export const readData2 = async (req, res) => {
-  TrainerData.find({}, (err, result) => {
-    console.log(result.data);
-    if (err) {
-      res.send(err);
-    }
-    res.send(result);
-  });
-};
-
-export const readData3 = async (req, res) => {
-  OwnTrainingData.find({}, (err, result) => {
     if (err) {
       res.send(err);
     }

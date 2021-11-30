@@ -7,7 +7,7 @@ const setToken = newToken => {
     token = `bearer ${newToken}`
 }
 
-const getEntries = async () => {
+const getOwnEntries = async () => {
    const response = await axios.get(`${baseUrl}/result/omat`)
    return response;  
 }
@@ -29,6 +29,6 @@ const modifyEntry = async newObject => {
 }
 
 
-const trainingDiaryServices = { setToken, getEntries, create, deleteEntry, modifyEntry };
+const trainingDiaryServices = { setToken, getOwnEntries, create, deleteEntry, modifyEntry };
 
 export default trainingDiaryServices;

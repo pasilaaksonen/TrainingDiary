@@ -10,5 +10,5 @@ const ownTrainingSchema = mongoose.Schema({
 });
 
 const OwnTrainingData = mongoose.model('owntrainingdata', ownTrainingSchema);
-//
+
 export default OwnTrainingData;

@@ -9,5 +9,5 @@ const userSchema = mongoose.Schema({
 });
 
 const UserData = mongoose.model('userdata', userSchema);
-//
+
 export default UserData;

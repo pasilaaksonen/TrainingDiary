@@ -8,6 +8,7 @@ import Navigointi from './components/Navigointi';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './ProtectedPages/ProtectedRoute';
 import trainingDiaryServices from './services/trainingDiary';
+import Footer from './components/Footer'
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -69,6 +70,7 @@ const App = () => {
             isLoggedAmmattilainen={isLoggedAmmattilainen}
           />
         </Switch>
+        <Footer />
       </Router>
     </>
   );

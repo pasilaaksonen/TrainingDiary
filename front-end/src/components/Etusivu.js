@@ -5,6 +5,8 @@ import rope from '../images/rope.jpg';
 import row from '../images/row.jpg';
 import weights from '../images/weights.jpg';
 
+import Footer from './Footer'
+
 const Etusivu = () => {
 
     return (
@@ -18,10 +20,8 @@ const Etusivu = () => {
                 <img src={weights} alt='weights' class='img' />
                 <img src={row} alt='row' class='img' />
             </div>
-
-            <h6 class='bottomText'>
-                Back-End Development project by Pasi Laaksonen, Albert Puustinen, Samuel Jumppanen, Yolanda Theodorakis
-            </h6>
+         
+            <Footer></Footer>
         </div>
     )
 }

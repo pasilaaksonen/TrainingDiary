@@ -65,6 +65,7 @@ const App = () => {
             component={OmaProfiili}
             isAuth={isLogged}
             name={name}
+            user={user}
             isLoggedAmmattilainen={isLoggedAmmattilainen}
           />
         </Switch>

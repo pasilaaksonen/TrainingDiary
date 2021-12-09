@@ -70,7 +70,7 @@ export const readData = async (req, res) => {
 };
 
 export const readProfile = async (req, res) => {
-  UserData.find({}, (err, result) => {
+  UserData.findOne({email: req.body.email}, (err, result) => {
     if (err) {
       res.send(err);
     }

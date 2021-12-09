@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Axios from 'axios';
+import profileServices from '../services/profile';
 
-const OmaProfiili = () => {
+const OmaProfiili = (props) => {
   //
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    Axios.get('http://localhost:5000/user/result/profile').then(response => {
-      console.log('selected user', response.data[0]);
-
-      // TODO: kirjautuneen käyttäjän valinta
-      setUser({
-        name: response.data[0].name,
-        lastname: response.data[0].lastname,
-        isProfessional: response.data[0].isProfessional,
-      });
+    profileServices.getOwnProfile(props.user.email).then(response => {
+      console.log('selected user', response, props.user);
+      setUser(
+        response
+    );
     });
   }, []);
 
@@ -31,6 +27,9 @@ const OmaProfiili = () => {
           {/* <Card.Text>Profile description</Card.Text> */}
         </Card.Body>
         <ListGroup className='list-group-flush'>
+          <ListGroupItem>
+            Sähköposti: {user.email}
+            </ListGroupItem>
           <ListGroupItem>
             Nimike: {user.isProfessional ? 'Ammattilainen' : 'Harrastelija'}
           </ListGroupItem>

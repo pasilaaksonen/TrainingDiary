@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post('/login', login);
 router.get('/result/amateurs', readData);
-router.get('/result/profile', readProfile);
+router.post('/result/profile', readProfile);
 router.post('/addnew', insertNewTrainingData);
 router.delete('/delete/:id', deleteTrainingData);
 router.put('/update', editTraining);

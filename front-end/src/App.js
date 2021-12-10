@@ -18,8 +18,10 @@ const App = () => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedTrainingDiaryAppUser')
+    console.log(loggedUserJSON)
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
+      setIsLogged(true)
       setUser(user)
       trainingDiaryServices.setToken(user.token)
     }
@@ -41,6 +43,7 @@ const App = () => {
           name={name}
           setName={setName}
           setUser={setUser}
+          handleLogOut={handleLogOut}
         />
         <Switch>
           <Route path='/' exact render={() => <Etusivu />} />

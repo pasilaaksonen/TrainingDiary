@@ -35,11 +35,11 @@ const Navigointi = (props) => {
                 email, password,
             })
             window.localStorage.setItem(
-                'loggedBlogAppUser', JSON.stringify(user)
+                'loggedTrainingDiaryAppUser', JSON.stringify(user)
             )
             trainingDiaryServices.setToken(user.token)
-            console.log(user)
-            console.log(window.localStorage.getItem('loggedBlogAppUser'))
+            // console.log(user)
+            
             props.setUser(user)
             setLoggedIn(true);
             setLoggedInAs(user.name);
@@ -80,6 +80,7 @@ const Navigointi = (props) => {
     }
 
     const handleLogOut = () => {
+        props.handleLogOut()
         setLoggedIn(false);
         props.setName("");
         props.setIsLoggedAmmattilainen(false);

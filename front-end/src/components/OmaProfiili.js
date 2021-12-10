@@ -17,7 +17,7 @@ const OmaProfiili = (props) => {
 
   return (
     <div>
-      <h1 class='title'>Oma profiili</h1>
+      <h1 className='title'>Oma profiili</h1>
       <Card style={{ width: '18rem', marginLeft: '5%' }}>
         {/* <Card.Img variant='top' src='holder.js/100px180?text=Image cap' /> */}
         <Card.Body>

@@ -99,8 +99,8 @@ const OmatTreenit = (props) => {
         <td>{users.Suoritukset_yht}</td>
         <td>{users.Paino}</td>
         <td>
-          <button onClick={() => handleEdit(users.ID)} class='editAndDelete'><GrEdit class='editAndDelete' /></button>
-          <button onClick={() => handleRemove(users.ID)} class='editAndDelete'><MdDeleteSweep class='editAndDelete' /></button>
+          <button onClick={() => handleEdit(users.ID)} className='editAndDelete'><GrEdit className='editAndDelete' /></button>
+          <button onClick={() => handleRemove(users.ID)} className='editAndDelete'><MdDeleteSweep className='editAndDelete' /></button>
         </td>
       </tr>
     );
@@ -109,9 +109,9 @@ const OmatTreenit = (props) => {
 
   return (
     <div>
-      <h1 class='title'>Omat treenit</h1>
+      <h1 className='title'>Omat treenit</h1>
       <Table striped bordered hover responsive variant='info' id='table'>
-        <thead class='align-middle'>
+        <thead className='align-middle'>
           <tr>
             <th>Päivämäärä</th>
             <th>Laji</th>
@@ -120,12 +120,12 @@ const OmatTreenit = (props) => {
             <th></th>
           </tr>
         </thead>
-        <tbody class='align-middle'>
+        <tbody className='align-middle'>
           {userData.map(renderPlayer)}
         </tbody>
       </Table>
 
-      <button type='button' class='addButton' onClick={handleShowAddNew}>Lisää uusi</button>
+      <button type='button' className='addButton' onClick={handleShowAddNew}>Lisää uusi</button>
 
       <Modal show={addMoreDialog} onHide={handleCloseAddNew} backdrop='static'>
         <Modal.Header closeButton>

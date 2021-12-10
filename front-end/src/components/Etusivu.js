@@ -9,14 +9,14 @@ const Etusivu = () => {
 
     return (
         <div>
-            <h1 class='welcomeText'>
+            <h1 className='welcomeText'>
                 TERVETULOA TREENIPÄIVÄKIRJAAN!
             </h1>
             
-            <div class='imgContainer'>
-                <img src={rope} alt='rope' class='img' />
-                <img src={weights} alt='weights' class='img' />
-                <img src={row} alt='row' class='img' />
+            <div className='imgContainer'>
+                <img src={rope} alt='rope' className='img' />
+                <img src={weights} alt='weights' className='img' />
+                <img src={row} alt='row' className='img' />
             </div>
         </div>
     )

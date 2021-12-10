@@ -31,31 +31,28 @@ const Navigointi = (props) => {
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
-          const user = await loginServices.login({
-            email, password,
-          })
-          window.localStorage.setItem(
-            'loggedBlogAppUser', JSON.stringify(user)
-          )
-          trainingDiaryServices.setToken(user.token)
-          console.log(user)
-          props.setUser(user)
-        //   setUsername('')
-        //   setPassword('')
-
-        setLoggedIn(true);
-        setLoggedInAs(user.name);
-        props.setIsLoggedAmmattilainen(user.isProfessional);
-        props.setName(user.name);
-        props.setIsLogged(true);
-
-        console.log('succesfully logged in')
-        handleCloseSignIn();
+            const user = await loginServices.login({
+                email, password,
+            })
+            window.localStorage.setItem(
+                'loggedBlogAppUser', JSON.stringify(user)
+            )
+            trainingDiaryServices.setToken(user.token)
+            console.log(user)
+            console.log(window.localStorage.getItem('loggedBlogAppUser'))
+            props.setUser(user)
+            setLoggedIn(true);
+            setLoggedInAs(user.name);
+            props.setIsLoggedAmmattilainen(user.isProfessional);
+            props.setName(user.name);
+            props.setIsLogged(true);
+            console.log('succesfully logged in')
+            handleCloseSignIn();
         } catch (exception) {
             console.log('wrong username or password')
             handleCloseSignIn();
         }
-      }
+    }
 
     const registerUser = () => {
 
@@ -92,20 +89,20 @@ const Navigointi = (props) => {
 
     return (
         <>  
-            <nav class='nav'>
+            <nav className='nav'>
                 <Link to="/">
-                    <button class='navButton'>
+                    <button className='navButton'>
                         Etusivu
                     </button>
                 </Link>
                 <Link to="/harrastajien_tulokset">
-                    <button class='navButton'>
+                    <button className='navButton'>
                         Harrastajat
                     </button>
                 </Link>
                 {props.isLoggedAmmattilainen &&
                 <Link to="/ammattilaisten_tulokset">
-                    <button class='navButton'>
+                    <button className='navButton'>
                         Ammattilaiset
                     </button>
                 </Link>
@@ -113,12 +110,12 @@ const Navigointi = (props) => {
                 {props.isLogged && (
                   <>
                     <Link to="/omat_treenit">
-                        <button class='navButton'>
+                        <button className='navButton'>
                             Omat Treenit
                         </button>
                     </Link>
                     <Link to="/oma_profiili">
-                      <button class='navButton'>
+                      <button className='navButton'>
                           Oma Profiili
                       </button>
                     </Link>
@@ -126,8 +123,8 @@ const Navigointi = (props) => {
                 )}
                 {"  "}
                 {props.isLogged? 
-                    <button variant="primary" onClick={handleLogOut} class='navButton'><BiLogOut class='loginIcon' /></button>:
-                    <button variant="primary" onClick={handleShowSignIn} class='navButton'>Kirjaudu<BiLogIn class='loginIcon' /></button>
+                    <button variant="primary" onClick={handleLogOut} className='navButton'><BiLogOut className='loginIcon' /></button>:
+                    <button variant="primary" onClick={handleShowSignIn} className='navButton'>Kirjaudu<BiLogIn className='loginIcon' /></button>
                 }
             </nav>
 

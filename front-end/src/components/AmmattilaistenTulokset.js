@@ -57,16 +57,16 @@ const AmmattilaistenTulokset = () => {
       
   return (
     <div>
-      <h1 class='title'>Ammattilaiset</h1>
+      <h1 className='title'>Ammattilaiset</h1>
       <ReactBootStrap.Table striped bordered hover responsive variant='info' id='table'>
-        <thead class='align-middle'>
+        <thead className='align-middle'>
           <tr>
             <th>Päivämäärä</th>
             <th>Suoritukset yht.</th>
             <th>Suorittajalkm</th>
           </tr>
         </thead>
-        <tbody class='align-middle'>
+        <tbody className='align-middle'>
           {professionals.map(renderPlayer)}
         </tbody>
       </ReactBootStrap.Table> 

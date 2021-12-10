@@ -56,16 +56,16 @@ const HarrastajienTulokset = () => {
 
   return (
     <div>
-      <h1 class='title'>Harrastajat</h1>
+      <h1 className='title'>Harrastajat</h1>
       <ReactBootStrap.Table striped bordered hover responsive variant='info' id='table'>
-        <thead class='align-middle'>
+        <thead className='align-middle'>
           <tr>
             <th>Päivämäärä</th>
             <th>Suoritukset yht.</th>
             <th>Suorittajalkm</th>
           </tr>
         </thead>
-        <tbody class='align-middle'>
+        <tbody className='align-middle'>
           {users.map(renderPlayer)}
         </tbody>
       </ReactBootStrap.Table> 

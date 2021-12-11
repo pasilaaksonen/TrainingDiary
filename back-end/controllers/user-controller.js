@@ -60,7 +60,6 @@ export const register = async (req, res) => {
 
 export const readData = async (req, res) => {
   OwnTrainingData.find({}, (err, result) => {
-    console.log(result.data);
     if (err) {
       res.send(err);
     }

@@ -21,6 +21,10 @@ const App = () => {
     console.log(loggedUserJSON)
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
+      setName(user.name)
+      if (user.isProfessional) {
+        setIsLoggedAmmattilainen(true)
+      }
       setIsLogged(true)
       setUser(user)
       trainingDiaryServices.setToken(user.token)

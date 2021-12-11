@@ -1,6 +1,5 @@
 import express from 'express';
 import UserData from '../models/user-model.js';
-import TrainerData from '../models/trainer-model.js';
 import OwnTrainingData from '../models/own-training.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';

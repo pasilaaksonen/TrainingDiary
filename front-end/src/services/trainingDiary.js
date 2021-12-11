@@ -8,7 +8,7 @@ const setToken = newToken => {
 }
 
 const getOwnEntries = async () => {
-   const response = await axios.get(`${baseUrl}/result/omat`)
+   const response = await axios.get(`${baseUrl}/result/amateurs`)
    return response;  
 }
 

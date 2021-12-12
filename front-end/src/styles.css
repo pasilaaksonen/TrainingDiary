@@ -65,20 +65,6 @@
   justify-content: center;
   margin-top: 100px;
 }
-
-.footer{
-  margin-top: 1rem;
-  padding: 2rem;
-  background-color: grey;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-.footerText {
-  background-color: inherit;
-}
 /* End of Etusivu */
 
 /* OmatTreenit */
@@ -109,6 +95,22 @@
   margin-right: 5px;
 }
 /* End of OmatTreenit*/
+
+/* Footer */
+.footer{
+  margin-top: 1rem;
+  padding: 2rem;
+  background-color: grey;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.footerText {
+  background-color: inherit;
+}
+/* End of Footer*/
 
 /* Modals */
 #modalTitle {
@@ -170,6 +172,19 @@
     text-align: center;
     margin-top: 100px;
   }
+
+  .footer{
+    margin-top: 1rem;
+    padding: 2rem;
+    background-color: grey;
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footerText {
+    background-color: inherit;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -215,5 +230,18 @@
     justify-content: center;
     text-align: center;
     margin-top: 100px;
+  }
+
+  .footer{
+    margin-top: 1rem;
+    padding: 2rem;
+    background-color: grey;
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .footerText {
+    background-color: inherit;
   }
 }

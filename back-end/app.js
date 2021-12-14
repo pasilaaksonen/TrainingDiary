@@ -2,15 +2,17 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import postRoutes from './routes/user-routes.js';
+import middlewares from './middlewares/middlewares.js'
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 
+app.use(middlewares.tokenExtractor)
+app.use(middlewares.userExtractor)
 app.use(express.json())
 app.use(cors());
-
 app.use('/user', postRoutes);
 
 mongoose

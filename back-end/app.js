@@ -3,9 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import postRoutes from './routes/user-routes.js';
 import middlewares from './middlewares/middlewares.js'
-
-import dotenv from 'dotenv';
-dotenv.config();
+import config from './utils/config.js'
 
 const app = express();
 
@@ -16,7 +14,7 @@ app.use(cors());
 app.use('/user', postRoutes);
 
 mongoose
-    .connect(process.env.MONGO_DB_LINK, {
+    .connect(config.MONGO_DB_LINK, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

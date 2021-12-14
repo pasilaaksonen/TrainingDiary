@@ -4,6 +4,8 @@ import OwnTrainingData from '../models/own-training.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+const router = express.Router();
+
 export const login = async (req, res) => {
   const body = req.body;
 
@@ -29,8 +31,6 @@ export const login = async (req, res) => {
 
   res.status(200).send({ token, name: user.name, email: user.email, isProfessional: user.isProfessional });
 };
-
-const router = express.Router();
 
 export const register = async (req, res) => {
   const name = req.body.name;
@@ -84,6 +84,9 @@ export const insertNewTrainingData = async (req, res) => {
   const paino = req.body.paino;
   const isProfessional = req.body.isProfessional;
 
+  //Search user by decoded token id
+  const user = await UserData.findById(req.user)
+
   const newdata = new OwnTrainingData({
     name: name,
     pvm: pvm,
@@ -91,6 +94,7 @@ export const insertNewTrainingData = async (req, res) => {
     suoritukset_yht: suoritukset_yht,
     paino: paino,
     isProfessional: isProfessional,
+    user: user._id
   });
   try {
     await newdata.save();
@@ -101,10 +105,26 @@ export const insertNewTrainingData = async (req, res) => {
 };
 
 export const deleteTrainingData = async (req, res) => {
+  
   const id = req.params.id;
+  const entry = await OwnTrainingData.findById(req.params.id)
+  const userID = entry.user.toString()
+
+  //If token does not exist or doesn't include id, it will cause error
+  if (!req.token || !req.user) { 
+    console.log("token missing or invalid")  
+    return res.status(401).json({ error: 'token missing or invalid' })  
+  }
+
+  //Checks if user is authorized to remove the blog
+  if (userID !== req.user) {  
+    console.log("not authorized to remove this blog")    
+    return res.status(401).json({ error: 'not authorized to remove this blog' })  
+  }
+
   await OwnTrainingData.findByIdAndDelete(id).exec();
   id;
-  res.send('deleted');
+  res.status(204).end();
 };
 
 export const editTraining = async (req, res) => {

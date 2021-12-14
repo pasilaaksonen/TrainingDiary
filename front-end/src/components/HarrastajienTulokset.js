@@ -12,7 +12,6 @@ const HarrastajienTulokset = () => {
         
       const newArray = [['Pvm', 'Suoritukset_yht', 'Suorittajalkm']];
       const datesArray = [];
-      const datasByDates = [];
 
       // Filters away professionals
       const nonProfessionalData = response.data.filter(item => item.isProfessional === false);

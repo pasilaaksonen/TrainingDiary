@@ -16,9 +16,6 @@ const Navigointi = (props) => {
     const [password, setPasword] = useState("");
     const [registerCheckBox, setRegisterCheckBox] = useState(false);
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loggedInAs, setLoggedInAs] = useState("");
-
     const handleCloseSignIn = () => setsignInDialog(false);
     const handleCloseSignUp = () => setsignUpDialog(false);
     const handleShowSignIn = () => setsignInDialog(true);
@@ -38,11 +35,7 @@ const Navigointi = (props) => {
                 'loggedTrainingDiaryAppUser', JSON.stringify(user)
             )
             trainingDiaryServices.setToken(user.token)
-            // console.log(user)
-            
             props.setUser(user)
-            setLoggedIn(true);
-            setLoggedInAs(user.name);
             props.setIsLoggedAmmattilainen(user.isProfessional);
             props.setName(user.name);
             props.setIsLogged(true);
@@ -81,10 +74,8 @@ const Navigointi = (props) => {
 
     const handleLogOut = () => {
         props.handleLogOut()
-        setLoggedIn(false);
         props.setName("");
         props.setIsLoggedAmmattilainen(false);
-        setLoggedInAs("");
         props.setIsLogged(false)
     }
 

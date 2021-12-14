@@ -58,7 +58,6 @@ const OmatTreenit = (props) => {
     trainingDiaryServices.getOwnEntries().then((response) => {
     
     const newArray = [['ID', 'Pvm', 'Laji', 'Suoritukset_yht', 'Paino']];
-    const datesArray = [];
 
     const ownData = response.data.filter(item => item.name === props.name);
   

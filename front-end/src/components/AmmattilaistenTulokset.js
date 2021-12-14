@@ -13,7 +13,6 @@ const AmmattilaistenTulokset = () => {
       
     const newArray = [['Pvm', 'Suoritukset_yht', 'Suorittajalkm']];
     const datesArray = [];
-    const datasByDates = [];
 
     // Filters away non-professionals
     const nonProfessionalData = response.data.filter(item => item.isProfessional === true);

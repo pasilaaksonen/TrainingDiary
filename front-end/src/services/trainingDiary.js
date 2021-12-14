@@ -13,13 +13,19 @@ const getOwnEntries = async () => {
 }
 
 const create = async newObject => {
-    const response = await axios.post(`${baseUrl}/addnew`, newObject)
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.post(`${baseUrl}/addnew`, newObject, config)
     console.log(response.data)
     return response.data
 }
 
 const deleteEntry = async id => {
-    const response = await axios.delete(`${baseUrl}/delete/${id}`);
+    const config = {
+        headers: { Authorization: token },
+    }
+    const response = await axios.delete(`${baseUrl}/delete/${id}`, config);
     return response;   
 }
 

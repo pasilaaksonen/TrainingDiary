@@ -13,7 +13,7 @@ const OmaProfiili = (props) => {
         response
     );
     });
-  }, []);
+  }, [props.user]);
 
   return (
     <div>

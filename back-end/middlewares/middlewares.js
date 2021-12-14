@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../utils/config.js';
 
+//Getting token from request header
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization');
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -9,6 +10,7 @@ const tokenExtractor = (request, response, next) => {
     next();
 };
 
+//Getting user name from a token
 const userExtractor = (request, response, next) => {
   const authorization = request.get('authorization');  
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {

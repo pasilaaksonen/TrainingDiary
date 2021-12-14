@@ -9,8 +9,10 @@ const router = express.Router();
 export const login = async (req, res) => {
   const body = req.body;
 
+  //Looking for user by email
   const user = await UserData.findOne({ email: body.email });
 
+  //Checking if password is correct
   const passwordCorrect =
     user === null
       ? false
@@ -22,26 +24,32 @@ export const login = async (req, res) => {
     });
   }
 
+  //Creating data for token
   const userForToken = {
     username: user.name,
     id: user._id,
   };
 
+  //Creating token
   const token = jwt.sign(userForToken, process.env.SECRET);
 
+  //Sending object containing token and other data
   res.status(200).send({ token, name: user.name, email: user.email, isProfessional: user.isProfessional });
 };
 
 export const register = async (req, res) => {
+  //Gathering data for the register
   const name = req.body.name;
   const lastname = req.body.lastname;
   const email = req.body.email;
   const password = req.body.password;
   const isProfessional = req.body.isProfessional;
 
+  //Crypting password
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
 
+  //Creating new User document
   const newUserData = new UserData({
     name: name,
     lastname: lastname,
@@ -50,7 +58,9 @@ export const register = async (req, res) => {
     isProfessional: isProfessional,
   });
 
+
   try {
+    //Saving new document to the database
     await newUserData.save();
     res.status(201).json(newUserData);
   } catch (error) {
@@ -59,6 +69,7 @@ export const register = async (req, res) => {
 };
 
 export const readData = async (req, res) => {
+  //Getting all training data from the database
   OwnTrainingData.find({}, (err, result) => {
     if (err) {
       res.send(err);
@@ -68,6 +79,7 @@ export const readData = async (req, res) => {
 };
 
 export const readProfile = async (req, res) => {
+  //Getting userdata by email
   UserData.findOne({email: req.body.email}, (err, result) => {
     if (err) {
       res.send(err);
@@ -84,7 +96,7 @@ export const insertNewTrainingData = async (req, res) => {
   const paino = req.body.paino;
   const isProfessional = req.body.isProfessional;
 
-  //Search user by decoded token id
+  //Searching user by decoded token id (comes from middleware)
   const user = await UserData.findById(req.user)
 
   const newdata = new OwnTrainingData({
@@ -105,9 +117,11 @@ export const insertNewTrainingData = async (req, res) => {
 };
 
 export const deleteTrainingData = async (req, res) => {
-  
+  //Getting id from url parameter
   const id = req.params.id;
+  //Searching for entry by id
   const entry = await OwnTrainingData.findById(req.params.id)
+  //Converting userID to string
   const userID = entry.user.toString()
 
   //If token does not exist or doesn't include id, it will cause error
@@ -121,7 +135,7 @@ export const deleteTrainingData = async (req, res) => {
     console.log("not authorized to remove this blog")    
     return res.status(401).json({ error: 'not authorized to remove this blog' })  
   }
-
+  //Deleting training data from the database by id
   await OwnTrainingData.findByIdAndDelete(id).exec();
   id;
   res.status(204).end();
@@ -135,6 +149,7 @@ export const editTraining = async (req, res) => {
   const paino = req.body.paino;
 
   try {
+    //Searching for entry by id and editing it
     await OwnTrainingData.findById(id, (err, updatedTraining) => {
       updatedTraining.pvm = pvm;
       updatedTraining.laji = laji;

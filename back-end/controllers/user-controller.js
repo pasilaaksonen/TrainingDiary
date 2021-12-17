@@ -133,7 +133,7 @@ export const deleteTrainingData = async (req, res) => {
   //Checks if user is authorized to remove the blog
   if (userID !== req.user) {  
     console.log("not authorized to remove this blog")    
-    return res.status(401).json({ error: 'not authorized to remove this blog' })  
+    return res.status(401).json({ error: 'not authorized to remove this entry' })  
   }
   //Deleting training data from the database by id
   await OwnTrainingData.findByIdAndDelete(id).exec();

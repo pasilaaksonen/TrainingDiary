@@ -3,7 +3,6 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import profileServices from '../services/profile';
 
 const OmaProfiili = (props) => {
-  //
   const [user, setUser] = useState([]);
 
   useEffect(() => {

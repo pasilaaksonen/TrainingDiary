@@ -31,6 +31,7 @@ const Navigointi = (props) => {
             const user = await loginServices.login({
                 email, password,
             })
+            //Setting token containing user information to memory cache
             window.localStorage.setItem(
                 'loggedTrainingDiaryAppUser', JSON.stringify(user)
             )
@@ -58,7 +59,7 @@ const Navigointi = (props) => {
             email: email,
             password: password,
             isProfessional: registerCheckBox,  
-        })
+        });
     };
 
     const handleRegister = () => {

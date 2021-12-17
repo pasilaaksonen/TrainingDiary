@@ -71,7 +71,7 @@ const OmatTreenit = (props) => {
     setUserData(newArrayOfObjects);
 
     });
-},[props.name])
+},[props.name]);
 
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const OmatTreenit = (props) => {
     getData();
     handleCloseEditTraining();
     getData();
-  }
+  };
     
   const renderPlayer = (users, index) => {
     return (

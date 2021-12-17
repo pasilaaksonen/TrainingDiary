@@ -17,24 +17,26 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedTrainingDiaryAppUser')
-    console.log(loggedUserJSON)
+    const loggedUserJSON = window.localStorage.getItem('loggedTrainingDiaryAppUser');
+    console.log(loggedUserJSON);
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setName(user.name)
+      const user = JSON.parse(loggedUserJSON);
+      setName(user.name);
       if (user.isProfessional) {
-        setIsLoggedAmmattilainen(true)
-      }
-      setIsLogged(true)
-      setUser(user)
-      trainingDiaryServices.setToken(user.token)
-    }
-  }, [])
+        setIsLoggedAmmattilainen(true);
+      };
+      setIsLogged(true);
+      setUser(user);
+      //Getting token from cache memory
+      trainingDiaryServices.setToken(user.token);
+    };
+  }, []);
   
   const handleLogOut = () => {
-    window.localStorage.removeItem('loggedTrainingDiaryAppUser')
-    window.location.reload()
-  }
+    //Removing token from cache memory
+    window.localStorage.removeItem('loggedTrainingDiaryAppUser');
+    window.location.reload();
+  };
 
   return (
     <>
